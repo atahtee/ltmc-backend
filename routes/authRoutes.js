@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -20,6 +20,10 @@ router.post("/signup", async (req, res) => {
       return res
         .status(400)
         .json({ error: "Password must be atleast 8 characters long" });
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({error: "Passwords do not match"});
     }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
