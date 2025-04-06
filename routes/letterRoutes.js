@@ -31,6 +31,24 @@ router.post("/post-new-letter", verifyToken, async (req, res) => {
     }
 });
 
+router.delete("/delete-letter/:id", verifyToken, async (req, res) => {
+
+    const letterId = req.params.id;
+
+    try {
+        const letter = await Letter.findOne({_id: letterId, userId: req.userId});
+        if(!letter){
+            return res.status(404).json({error: "Letter not found or unauthorized"});
+
+        }
+        await Letter.deleteOne({_id: letterId});
+        res.status(200).json({message: "Letter deleted successfully"})
+    } catch (error) {
+        console.error("Delete error", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+});
+
 router.get("/my-letters", verifyToken, async (req, res) => {
     try {
         const letters = await Letter.find({userId: req.userId}).populate("recipient", "name birthday");
@@ -38,7 +56,9 @@ router.get("/my-letters", verifyToken, async (req, res) => {
     } catch (error) {
         res.status(500).json({error: "Internal server error"})
     }
-})
+});
+
+
 
 
 module.exports = router;
