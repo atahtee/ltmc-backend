@@ -15,6 +15,14 @@ const app = express()
 app.use(cors())
 app.use(express.json());
 
+app.get("/ping", (req, res) => {
+    res.send("pong pongggggg");
+  });
+
+app.get("/", async (req,res) => {
+    res.send("Site is working")
+})
+
 app.use("/auth", authRoutes)
 app.use("/api/letters", letterRoutes);
 app.use("/api/child-profiles", childProfilesRouter);
