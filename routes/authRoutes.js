@@ -180,9 +180,6 @@ router.get("/google-signin", (req, res) => {
   res.send("Google is working")
 })
 
-router.get("/google-signin-test", (req, res) => {
-  res.send("Google sign-in test route is accessible");
-});
 
 router.get("/test-google", (req, res) => {
   console.log("✅ Test route hit");
