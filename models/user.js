@@ -17,6 +17,19 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    googleId: {
+        type: String,
+        sparse: true,
+        unique: true
+    },
+    profilePicture: {
+        type: String
+    },
+    authMethod: {
+        type: String,
+        enum: ['local', 'google', 'apple'],
+        default: 'local'
+    },
     termsAccepted: {
         type: Boolean,
         default: false
