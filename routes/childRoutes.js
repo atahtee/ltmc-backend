@@ -23,7 +23,7 @@ res.status(500).json({error: error.message})
 
 router.get('/get-children', verifyToken, async (req, res) => {
     try {
-        const childProfiles = await ChildProfile.find({parent: req.re});
+        const childProfiles = await ChildProfile.find({parent: req.userId});
         res.status(200).json(childProfiles);
     } catch (error) {
         res.status(500).json({error: error.message});
