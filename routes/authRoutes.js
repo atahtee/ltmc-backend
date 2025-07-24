@@ -14,15 +14,15 @@ const router = express.Router();
 
 const loginLimiter = rateLimiter ({
   windowMs: 15 * 60 * 1000,
-  max: 5,
+  max: 3,
   message: "Too many login attempts. Please try again later.",
    standardHeaders: true,
   legacyHeaders: false,
 });
 
 const signupLimiter = rateLimiter({
-  windowsMs: 60 * 60 * 60,
-  max: 3,
+  windowsMs: 60 * 60 * 1000,
+  max: 2,
   message: "Too many signup requests. Please try again later",
    standardHeaders: true,
   legacyHeaders: false,
@@ -90,7 +90,7 @@ router.post("/signup", signupLimiter, async (req, res) => {
   }
 });
 
-router.post("/login", loginLimiter, async (req, res) => {
+router.post("/login",  async (req, res) => {
   try {
     const { email, password } = req.body;
 
